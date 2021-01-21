@@ -1,0 +1,201 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[left=2.5cm,top=2.5cm,right=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\setlength{\parskip}{2px}
+\setlength{\parindent}{5px}
+\usepackage{ragged2e} 
+%\raggedleft 
+
+%opening
+\title{Estimación y Evaluación de Eficiencia de Atenuación en Elementos de Protección Mediante Simulación en Geant4.}
+\author{Isabel Alejandra Morales Salamanca}
+
+
+\begin{document}
+%\begin{flushright}
+\maketitle
+
+\section{Antecedentes}
+
+Los efectos perjudiciales que causaba la exposición a la radiación se conocen desde la época  en que se crea el primer Congreso Mundial de Radiología (1928) llamado \textquotedblleft  \textit{Comité Internacional de Protección para los Rayos X y el Radio}\textquotedblright . Posteriormente, años mas tarde (1950), el Comité se reestructuro en lo que hoy se conoce como 
+  \textquotedblleft\textit{Comisión Internacional de Protección Radiológica}\textquotedblright, un referente a nivel mundial que establece conceptos, principios y normativas internacionales y nacionales de un Sistema de Protección.
+
+
+Los primeros reportes de prendas para protección de radiación datan de los años ochenta (1980), estos elementos eran  para el uso en personas expuestas potencialmente a energías de tipo radiactivo.
+
+Uno de los primeros estudios enfocados a generar sistema de protección, corresponde a un análisis
+cuyo objetivo es caracterizar una prenda de uso corporal de dos piezas continuas y verticales (chaleco ajustable y falda) construido bajo la estructura de multicapas de material resistente a la radiación [ Gayle J. Maine,1980].
+
+Posteriormente en el año 1994, se crea y se estructura una prenda protectora o chaleco que hace uso de materiales que resisten la radiación, se caracteriza su forma y diseño con la finalidad de disminuir el agotamiento en la parte superior del cuerpo de quien la use [Terry Simpkin,1994].
+
+Años mas tarde, se adelanta la  construcción de un delantal frontal con correas para los hombros y alerones (aletas cruzadas) que permiten la distribución del peso de la parte frontal del mismo sobre los hombros de quien lo usará [EE. UU. 4.441.025].%colocar año
+----------------
+En este mismo enfoque, esta relacionado con prendas hechas con el fin de proteger el cuerpo contra la radiación, incluye un cinturón con características elásticas condicionado para usarse  alrededor de dicha prenda a la altura de la cintura, cuyo objetivo es ceder  parte del peso de la prenda a la cintura [EE. UU 4.766.608].
+
+
+Años mas adelante (2010) se analizan y
+describen las tres nuevas técnicas de radioterapia con radiación sincrotrón que se desarrollan en la Línea Biomédica de la Instalación Europea para la Radiación Sincrotrón (ESRF). Con el objetivo de tratar aquellos tumores radiorresistentes, como los gliomas donde la radioterapia es sólo una solución paliativa. 
+[Revista de Física Médica, ISSN-e 1576-6632, Vol. 11, Nº. 1, 2010, págs. 27-34]
+
+
+Trabajos mas recientes, desarrollados en el año 2014, se realizan enfoncados al estudio de aquellos  materiales que se encuentran libres de plomo y que son capaces de atenuar la radiación ionizante en lo que respecta a la protección radiológica. En este estudio se expone la fase de simulación y análisis teórico para construir material físico  de protección, con el fin de usarlos en los  servicios de Medicina Nuclear y Radio diagnóstico. Esta investigación incluye además una base de datos proveniente del Instituto Nacional de Estándares y Tecnología utiles para su estudio y construcción teórica de dichos.[M. Mayorga, S. Plazas, E. Salazar, Ingenium, vol. 15, n.° 30, pp. 39-49, octubre, 2014.]
+
+
+%Este trabajo enfatiza el uso  de herramientas computacionales para el desarrollo de problemas de este tipo,esto fue lo que volví a escribir como para cambiarlo o complementar
+
+%dentro de este estudio se presentan etapas de simulación y análisis teórico que permiten obtener aquellos materiales que no contienen plomo dentro de su composición que sean viables en protección radiológica,
+%%%%%%%%%%%%%%%%
+
+Hasta esta altura el enfoque experimental ha sido experiemental, sin embargo, el estudio de protecciones radiologicas tipo chaleco, en los ultimos años ha tenido otro tipo de abordajes. Desde la simulación y con la presencia en la escena de la simulación con frames como PENELOPE, GEANT4 y GEAT el estudio de la protección radiologica ha generado abordades distintos.
+Se toma como referencia el recurso escrito asociado al estudio detallado de las  distribuciones teóricas con respecto a las dosis para el tipo de terapia (MRT).Este tipo de radioterapia con microhaz,  utiliza conjuntos casi que  paralelos altamente colimados de microhaces de rayos X de energías entre 50 y 600 keV, producidos por fuentes de sincrotrón de tercera generación. [J. Spiga,E. A. Siegbahn,E. Bräuer‐Krisch,P. Randaccio, A. Bravin,2007]
+
+
+
+
+Con el mismo entorno de simulación GEANT4, se referencian en la literatura otros estudios con un enfoque orientado tanto a las simulaciones en fisica medica [2] como a la exposicion de personas (medicos) en un medio de radiación [2]. En este tipo de estudios, como el referenciado [2], la herramienta GEANT4 cumple dos propositos novedosos, validar un sistema físico en un entorno simulado, dos, aproximar un fenomeno físico, para este caso, la exposición a la radiación de un medico en un proceso quirurgico. 
+
+
+Estudiar protección radiologica con herramientas en un entorno simulado es una practica emergente que se ha perfilado poco a poco mendiante estudios que han abordado el desarrollo y el analisis de sistemas en tres dimenciones en tiempo real, construir objetos en una sala bajo fuentes de diferentes naturaleza rayos X, siendo todas estas facultades de herramientas como GEANT4. GEANT4 permite  a los medicos revisar luego de cada intervención los niveles de exposición a la radiación para así tomar acciones que permitan minimizar la exposición bajo el uso de una fuente de rayos X. [J. Carrier,L. Archambault,L. Beaulieu,R. Roy,2004] [2]
+
+
+ 
+La madurez del software, el desarrollo permanente, el mejoramiento de las rutinas, el mantenimiento constante de Geant4, ha proporcionado estudios que ha permitido abordar enfoques en diferentes escenarios. Recientemente ha sido empleado para estudiar la dosis de neutrones en protección radiologica apartir de simulaciones de procesos nucleares. [Changran Geng, Xiaobin Tang, Fada Guan, Jesse Johns, Latha Vasudevan, Chunhui Gong, Diyun Shu, Da Chen, Radiation Protection Dosimetry, Volume 168, Issue 4, March 2016, Pages 433–440]
+
+Recientemente (2019), se puede encontrar estudios realizados en GEANT4 enfocados a otras areas de la Fisica Medica como las imagenes medicas[R.C.L.Silva,V.Denyakbd, H.R.Schelinad, G.Hoffc, S.A.Paschukd, J.A.P.Setti,May 2019] no la encontre en web ni en mendel.
+
+%
+LEER
+https://www.sciencedirect.com/science/article/abs/pii/S0969806X19309399
+%
+Comparison of GATE/GEANT4 with EGSnrc and MCNP for electron dose calculations at energies between 15 keV an
+
+
+
+Se realiza un estudio en el mismo año en la universidad Nacional de Colombia sede Bogotá se realizo un estudio sobre la  determinación de parámetros de caracterizan un haz de rayos x en el área de radio diagnostico implementando la norma de calidad RQR3.[Momento, Issue 58, p. 89-102, 2019. eISSN 2500-8013. Print ISSN 0121-4470.]
+
+
+Cada uno de estos recursos aquí citados se consideran base del estudio que se desarrollara en este documento.
+
+\section{Justificación}
+
+Las amplias aplicaciones de la radiación envuelven varios aspectos en la vida actual útiles y beneficiosas para el ser humano, estas aplicaciones hacen parte de un gran avance tecnológico donde el emplearse requiere garantías sobre el cumplimiento de normas de seguridad, ya que es importante establecer que los beneficios que se obtienen de estas practicas sean mayor en proporción a aquellos riesgos a los que puede estar expuesto el usuario, trabajador o publico.
+
+Inicialmente el uso y empleo de radiación genero antecedentes poco beneficiosos por desconocimiento sobre los efectos biológicos que se podrían presentar en las personas continuamente  expuestas a este tipo de energía, los físicos en sus inicios y luego los médicos fueron los mas perjudicados por los trabajos que se realizaron,[Rev haban cienc méd vol.14 no.3 La Habana mayo.-jun. 2015] y prontamente luego de estudiar y probar sus consecuencias, se toman acciones para establecer niveles aceptables a los que se puede estar expuesto sin causar daño alguno.
+
+
+La exposición permitió desarrollar lineas de interés, como la protección radiológica, diseñada y desarrollada para proteger a los individuos y a el medio ambiente de los efectos nocivos que trae el uso de  radiación,  sin limitar las prácticas que generan un beneficio para la sociedad. CITAR-ME FALTA COLOCAR UN DOC.
+
+Para disminuir los riesgos asociados a su uso, potencialmente en áreas como  la medicina y la industria, es necesario  tomar acciones que minimicen los daños a la exposición, donde  es necesario tener en cuenta por ejemplo ,factores como; distancias entre la fuente y el receptor, tiempo de exposición a la radiación, contención y tipo de blindaje especifico para la practica, factor importante y de interés principal en este estudio, considerar las características del elemento de protección radiológica \textbf{(chaleco o delantal con una equivalencia de plomo establecida por el fabricante)} para reducir en un porcentaje considerable la exposición a dosis de radiación no indispensable.     
+
+Actualmente la aplicación de herramientas tecnológicas son un mecanismo de trabajo y avance que han permitido fundamentar mediante la investigación procesos en áreas  aplicadas como la medicina, en el caso particular donde se usan radiaciones ionizantes, puesto que es importante establecer mecanismos de  protección  radiológica  de  las  personas expuestas a la misma, justificando la importancia de la relación de riesgo beneficio para el paciente o en el caso de aplicaciones médicas lo beneficioso del procedimiento para ambas partes.
+
+Con el uso de tecnologías los procesos científicos, han mejorado en gran proporción; en el caso del área médica las aplicaciones tecnológicas de punta cooperan con el quehacer médico, puesto que  propician la toma de decisiones en procedimientos que ameritan resultados eficaces y efectivos que no impliquen gastos físicos y/u operacionales que existirían en el caso de repetir procedimientos en búsqueda de buenos y óptimos resultados. El uso de herramientas computacionales en la actualidad  han sido de gran ayuda no solo en áreas donde se involucre la medicina, teniendo en cuenta toda la información que nos arroja es analizada según el área en la cual se centre la investigación de la  práctica clínica.
+
+
+\section{Problema}
+
+Tener acceso a procedimientos médicos que hacen uso de la radiación es hoy en día para el ser humano necesario y  en algunos casos inevitables prescindir del mismo. Por su uso, en este trabajo se realiza de forma virtual una  evaluación de eficiencia de Atenuación de una prenda de protección radiológica (chaleco) mediante Geant4 para analizar la mejor configuración de la prenda que permita poca exposición ante la radiación.
+
+
+\section{Objetivos}
+\subsection{Objetivo General}
+Estudiar la atenuación presente en una estructura de plomado mediante simulación en Geant4 mediante configuraciones relacionadas con los parámetros de espesor y energía.
+
+\subsection{Objetivo Específicos}
+\begin{enumerate}         
+%\begin{itemize}
+\item Simular en Geant4  una fuente con haces mono energéticos dirigidos a un blanco.
+%Simular el fenómeno físico, en el que la fuente son haces mono energéticos dirigidos a un blanco (chaleco plomado). 
+\item Testear y validar las configuraciones optimas para la captura de mediciones mediante el laboratorio virtual.
+
+%Corroborar que el porcentaje de atenuación obtenida mediante el laboratorio experimental y el laboratorio simulado, se encuentran dentro del rango del porcentaje de atenuación establecido por  el proveedor del chaleco.   
+\item Encontrar la tasa de atenuación para un chaleco con diferentes configuraciones(espesor-energía).
+
+%\item Comparar los resultados teóricos y experimentales de la atenuación presente en el uso del chaleco como elemento de protección radiológica. 
+\item Comparar el porcentaje de atenuación obtenida en el laboratorio simulado con el rango de porcentaje de atenuación establecido por el proveedor del chaleco. 
+\end{enumerate}
+
+%\end{itemize}
+
+\section{Marco Teórico}
+
+%\cite{Geant4}%
+
+\section{Metodología}
+
+
+
+%\begin{itemize}
+\begin{enumerate} 
+ \item Revisión de antecedentes. 
+ Aquí se realiza una breve descripción de los estudios que se ha realizado acerca del tema
+ \item Demarcar los principios físicos asociados a la solución del problema.Aquí se explica brevemente los fundamentes físicos teórico que permiten el análisis y desarrollo del problema.
+ \item Proponer modelo físico.
+ \item Realizar una simulación la herramienta Geant4.
+ %se realizan geométricamente y analíticamente las condiciones y características del sistema.
+ \item Establecer parámetros y distintas configuraciones para estudiar el problema. 
+ \item Analizar e interpretar resultados obtenidos.
+ \end{enumerate} 
+
+%\end{itemize}
+
+\section{Desarrollo de la propuesta}
+
+Constantemente nos encontramos expuestos a uno u otro tipo de radiación que puede traer consigo efectos dañinos para el ser humano, es por esto que es de gran importancia hacer uso de herramientas eficientes que permitan mantener control sobre la misma. En este trabajo se destaca una de esas herramientas, la simulación, quien posibilita el estudio de los diferentes parámetros que se involucran en la interacción radiación-materia en el problema del porcentaje de atenuación de un chaleco (prenda de protección radiológica) con un equivalente de plomo cotidiano usado en el área médica.  Esta herramienta es un software de distribución libre diseñado precisamente para simular la interacción radiación-materia empleada en áreas como Ingeniería, Física Nuclear, Biología y Medicina con base en la cual se han creado programas para fines  tales como  Penelope, GATE, y GEANT4 (GEometry ANd Tracking) nuestra herramienta.
+
+Esta plataforma de simulación fue desarrollada por el (CERN), la Organización Europea de Investigaciones Nucleares, la cual esta escrita en lenguaje C++ que usa una estructura basada en programación orientada a Objetos (POO), enfocando sus algoritmos de calculo al manejo del método Monte Carlo. 
+
+A partir de cada una de las clases que contiene la herramienta GEANT4, se establece una geometría especifica con base en el problema planteado( Un chaleco plomado expuesto a una fuente de radiación), inicialmente se definen las dimensiones y la forma del volumen mas apropiado del chaleco, lo mas cercano posible a los que se encuentran en el mercado. Luego se establecen el tipo de partículas implicadas en la simulación, definiendo las partículas que genera la fuente primaria de radiación.
+El enfoque del trabajo se dará bajo el uso de una fuente que proporciona haces en una sola dirección. para este caso se realiza la simulación variando los parámetros, espesores entre 100um y 1000um y energías tales como: F18 (Fluor), I131 (yodo), Tc99m (Tecnesio), RX40KVp, RX100kVp, RX180kVp ,para establecer bajo estas condiciones cual es la caracterización mas eficiente y adecuada 
+que se debe usar en los procesos médicos donde es necesario e imprescindible atenuar la radiación.
+
+
+
+\section{Resultados esperados}
+\begin{itemize}
+ \item Obtención de porcentaje de atenuacion de radiación correspondiente a cada configuración,estableciendo que configuración es mas optima en el procedimiento médico.
+ 
+ %A partir de las configuraciones establecidas en el laboratorio virtual mediante la simulación y la practica experimental con los mismos parámetros es importante evidenciar el mejor de los resultados en cada uno de ellos pues a partir de estos se estipula el porcentaje de atenuación de la radiación por el elemento de protección radiológica, chaleco con una equivalencia en plomo con el fin de usar el mas adecuado según el procedimiento médico que se realice en cada caso.
+ \end{itemize}
+
+\section{Bibliografía}
+\begin{itemize}
+%%%%%%
+
+\item Validation of GEANT4, an object‐oriented Monte Carlo toolkit, for simulations in medical physics
+$J.‐F.$ Carrier, L. Archambault, L. Beaulieu, R. Roy
+\item http://geant4.web.cern.ch/support
+\item https://www.mscbs.gob.es/normativa/audiencia/docs/Rdproteccionradiologica.pdf
+\item http://bibliotecadigital.ilce.edu.mx/sites/ciencia/volumen2/ciencia3/099/htm/laradser.htm
+\item $http://bibliotecadigital.ilce.edu.mx/sites/ciencia/volumen2/ciencia3/094/htm/radia2.htm$
+\item $http://bibliotecadigital.ilce.edu.mx/sites/ciencia/volumen3/ciencia3/112/htm/electr.htm$
+\item http://bibliotecadigital.ilce.edu.mx/sites/ciencia/volumen3/ciencia3/120/htm/pioneros.htm
+\item http://bibliotecadigital.ilce.edu.mx/sites/ciencia/volumen1/ciencia2/32/html/laluz.html
+\item http://bibliotecadigital.ilce.edu.mx/sites/ciencia/volumen1/ciencia2/37/htm/fis.htm
+\item http://bibliotecadigital.ilce.edu.mx/sites/ciencia/volumen1/ciencia2/42/htm/radiacti.htm
+\item http://bibliotecadigital.ilce.edu.mx/sites/ciencia/volumen1/ciencia2/23/htm/desarro.htm
+\item http://bibliotecadigital.ilce.edu.mx/sites/ciencia/volumen1/ciencia2/08/htm/radiacio.htm
+\item Justificación de uso de radiaciones ionizantes para protección radiológica con ocasion de esposciones medicas R.D. 815/2001
+\item GEANT4 for breast dosimetry: parameters optimization study C Fedon, F Longo , G Mettivier  and R Longo.
+%%%si
+\item Impact of detector simulation in particle physics collider
+experiments. V. Daniel Elvira
+
+\item On the design of experiments based on plastic scintillators using GEANT4
+simulations G. Ros, G. Sáez-Cano, G.A. Medina-Tanco, A.D. Supanitsky
+%%%%si
+\item The Geant4 Simulation Toolkit and Applications For the Geant4 Collaboration. John Apostolakis
+%si
+\item Advanced Monte Carlo for Radiation Physics, Particle Transport Simulation and Applications.A. Kling F. Barao, M. Nakagawa L.TavoraP.Vaz (Eds.)
+
+\item Geant4 Installation Guide : Building and Installing Geant4 for Users
+and Developers by Geant4 Collaboration. Version: geant4 10.2. Publication date 4 December 2015
+
+\item Radiation Physics for Medical Physicists. Ervin B. Podgoršak. Third Edition
+
+\item R.C.L.Silva,V.Denyakbd, H.R.Schelinad, G.Hoffc, S.A.Paschukd, J.A.P.Setti,May 2019
+
+\end{itemize}
+%\end{flushright}
+\end{document}
